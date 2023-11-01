@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentBusiness {
+    @Value("${spring.datasource.url}")
+    private String databaseUrl;
 
     @Autowired
     private PaymentDataBase paymentDatabase;
@@ -24,7 +26,12 @@ public class PaymentBusiness {
     @Autowired
     private TokenGenerator tokenGenerator;
 
+    public PaymentBusiness(PaymentDataBase paymentDatabase) {
+        this.paymentDatabase = paymentDatabase;
+    }
+
     public Payment createPayment(PaymentDTO payment, String token) throws InvalidRequest {
+        paymentDatabase.createPayment(payment);
         try {
             if (token == null || token.isBlank()) {
                 throw new InvalidRequest("Token is required",null);

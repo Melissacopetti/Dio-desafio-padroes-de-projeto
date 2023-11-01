@@ -2,6 +2,11 @@ package dio.desafiopadroesdeprojeto.dataBase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 public abstract class BaseDataBase {
@@ -38,4 +43,21 @@ public abstract class BaseDataBase {
     protected String getDbDatabaseName() {
         return environment.getProperty("spring.datasource.database-name");
     }
+ public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+     public ResultSet executeQuery(String sql) throws SQLException {
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        return resultSet;
+    }
+
+    public void update(String sql) throws SQLException {
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+    }
+    
 }

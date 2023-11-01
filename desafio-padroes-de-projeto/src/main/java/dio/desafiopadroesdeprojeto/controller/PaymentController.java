@@ -19,18 +19,19 @@ public class PaymentController {
 
     private final PaymentBusiness paymentBusiness;
 
-  
     public PaymentController(PaymentBusiness paymentBusiness) {
         this.paymentBusiness = paymentBusiness;
     }
 
     @PostMapping("/create")
-    public Payment createPayment(@RequestBody PaymentDTO newPayment) {
+    public Payment createPayment(@RequestBody @Validated PaymentDTO newPayment) {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
             String token = request.getHeader("Authorization");
 
             return paymentBusiness.createPayment(newPayment, token);
+        } catch (InvalidPaymentException e) {
+            throw new BadRequestException("Pagamento inválido: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Falha ao criar o pagamento: " + e.getMessage());
         }
@@ -47,4 +48,10 @@ public class PaymentController {
             throw new RuntimeException("Falha ao buscar os pagamentos: " + e.getMessage());
         }
     }
+
+    @ExceptionHandler(InvalidPaymentException.class)
+    public ResponseEntity<String> handleInvalidPaymentException(InvalidPaymentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }
+
