@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "'DB_HOST'",
+    "type": "java.lang.String",
+    "description": "A description for ''DB_HOST''"
+  },
+  {
+    "name": "DB_SCHEMA",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_SCHEMA'"
+  },
+  {
+    "name": "DB_USER",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_USER'"
+  },
+  {
+    "name": "DB_PASSWORD",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_PASSWORD'"
+  },
+  {
+    "name": "DB_HOST",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_HOST'"
+  },
+  {
+    "name": "DB_PASSWORD",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_PASSWORD'"
+  },
+  {
+    "name": "DB_PASSWORD",
+    "type": "java.lang.String",
+    "description": "A description for 'DB_PASSWORD'"
+  }
+]}
